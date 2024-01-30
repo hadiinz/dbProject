@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Handle Transaction</title>
+</head>
+<body>
+<h2>Handle Transaction</h2>
+<form id="handleTransactionForm">
+    <label for="sourceCard">Source Card:</label>
+    <input type="text" id="sourceCard" name="sourceCard" required><br>
+
+    <label for="destinationCard">Destination Card:</label>
+    <input type="text" id="destinationCard" name="destinationCard" required><br>
+
+    <label for="amount">Amount:</label>
+    <input type="number" id="amount" name="amount" required><br>
+
+    <label for="transactionType">Transaction Type:</label>
+    <select id="transactionType" name="transactionType" required>
+        <option value="SATNA">SATNA</option>
+        <option value="PAYA">PAYA</option>
+        <option value="CartTOCart">CartTOCart</option>
+    </select><br>
+
+    <button type="button" onclick="handleTransaction()">Submit</button>
+</form>
+
+<script>
+        function handleTransaction() {
+            // Get form data
+            const formData = {
+                sourceCard: document.getElementById("sourceCard").value,
+                destinationCard: document.getElementById("destinationCard").value,
+                amount: parseFloat(document.getElementById("amount").value),
+                transactionType: document.getElementById("transactionType").value
+            };
+
+            // Make HTTP POST request
+            fetch('/transaction/handle', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData),
+            })
+            .then(response => response.text())
+            .then(message => {
+                alert(message); // Display the response message
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        }
+    </script>
+</body>
+</html>

@@ -294,7 +294,7 @@ public class TransactionServiceImpl implements TransactionService {
                         transaction.setSuccess(resultSet.getBoolean("isSuccess"));
                         transaction.setDateTime(resultSet.getObject("dateTime", LocalDateTime.class));
                         transaction.setTraceNumber(resultSet.getString("traceNumber"));
-                        transaction.setTransactionType(ThpTransactionType.valueOf(resultSet.getString("transactionType")));
+                        transaction.setTransactionType( ThpTransactionType.fromType(Integer.valueOf(resultSet.getString("transactionType"))));
 
                         transactions.add(transaction);
                     }
@@ -329,7 +329,7 @@ public class TransactionServiceImpl implements TransactionService {
                         transaction.setSuccess(resultSet.getBoolean("isSuccess"));
                         transaction.setDateTime(resultSet.getObject("dateTime", LocalDateTime.class));
                         transaction.setTraceNumber(resultSet.getString("traceNumber"));
-                        transaction.setTransactionType(ThpTransactionType.valueOf(resultSet.getString("transactionType")));
+                        transaction.setTransactionType(ThpTransactionType.fromType(Integer.valueOf(resultSet.getString("transactionType"))));
 
                         return transaction;
                     }

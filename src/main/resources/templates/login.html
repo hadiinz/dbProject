@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Login</title>
+</head>
+<body>
+<h2>User Login</h2>
+<form id="loginForm">
+    <label for="userID">User ID:</label>
+    <input type="text" id="userID" name="userID" required><br>
+
+    <label for="password">Password:</label>
+    <input type="password" id="password" name="password" required><br>
+
+    <button type="button" onclick="login()">Login</button>
+</form>
+
+<script>
+        function login() {
+            // Get form data
+            const formData = {
+                providedUserID: document.getElementById("userID").value,
+                providedPassword: document.getElementById("password").value
+            };
+
+            // Make HTTP POST request
+            fetch('/user/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData),
+            })
+            .then(response => response.text())
+            .then(message => {
+                alert(message); // Display the response message
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        }
+    </script>
+</body>
+</html>

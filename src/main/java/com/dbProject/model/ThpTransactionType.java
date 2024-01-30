@@ -14,4 +14,14 @@ public enum ThpTransactionType {
     public int getType() {
         return type;
     }
+
+
+    public static ThpTransactionType fromType(int type) {
+        for (ThpTransactionType transactionType : ThpTransactionType.values()) {
+            if (transactionType.getType() == type) {
+                return transactionType;
+            }
+        }
+        throw new IllegalArgumentException("Invalid ThpTransactionType type: " + type);
+    }
 }

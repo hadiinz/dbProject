@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create User Account</title>
+</head>
+<body>
+<h2>Create User Account</h2>
+<form id="createAccountForm">
+    <label for="userID">User ID:</label>
+    <input type="text" id="userID" name="userID" required><br>
+
+    <label for="initialBalance">Initial Balance:</label>
+    <input type="number" id="initialBalance" name="initialBalance" required><br>
+
+    <button type="button" onclick="createAccount()">Create Account</button>
+</form>
+
+<script>
+        function createAccount() {
+            // Get form data
+            const formData = {
+                userID: document.getElementById("userID").value,
+                initialBalance: parseFloat(document.getElementById("initialBalance").value)
+            };
+
+            // Make HTTP POST request
+            fetch('/account/createNewAccount', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData),
+            })
+            .then(response => response.json())
+            .then(account => {
+                alert("Account created successfully. Account ID: " + account.userID);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        }
+    </script>
+</body>
+</html>
